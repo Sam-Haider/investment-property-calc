@@ -92,3 +92,13 @@
     margin-bottom: 20px;
   }
 }
+
+.do-not-invest {
+  font-weight: 800;
+  color: red;
+}
+
+.good-deal {
+  font-weight: 800;
+  color: rgb(0, 151, 48);
+}

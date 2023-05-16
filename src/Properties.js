@@ -86,6 +86,11 @@ const Properties = () => {
               <span className="property-label">Cash on Cash Return:</span>{" "}
               <div>{property.cocReturn}%</div>
             </div>
+            {property.cocReturn < 0 ? (
+              <div className="do-not-invest">Do Not Invest</div>
+            ) : (
+              <div className="good-deal">Seems like a good deal!</div>
+            )}
           </div>
         </div>
       </li>
@@ -96,7 +101,7 @@ const Properties = () => {
     <div className="properties-container">
       <h2 className="section-title">Analyze a Rental Property:</h2>
       <PropertyForm getProperties={getProperties} />
-      <h2 className="section-title">Saved Properties:</h2>
+      <h2 className="section-title">My Properties:</h2>
       <ul className="properties-list">{renderProperties()}</ul>
     </div>
   );
