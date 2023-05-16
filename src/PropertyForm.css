@@ -1,10 +1,31 @@
-#property-form {
-  /* border: 1px solid rgb(230, 228, 228); */
-  border-radius: 0.5rem;
-  padding: 20px;
+.form-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
-.form-container {
-  display: flex;
-  align-items: center;
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+}
+
+.submit-btn {
+  width: 250px;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: rgb(14, 108, 209);
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 22px;
 }

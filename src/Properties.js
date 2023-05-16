@@ -36,45 +36,56 @@ const Properties = () => {
           <img src={getRandomImage()} alt="a home" height="200" />
         </div>
         <div className="property-details">
-          <h3>{property.propertyAddress}</h3>
-          <div>
-            <b>Purchase Price: </b>${property.purchasePrice}
+          <h3 className="property-title">{property.propertyAddress}</h3>
+          <div className="property-info">
+            <span className="property-label">Purchase Price:</span> $
+            {property.purchasePrice}
           </div>
-          <div>
-            <b>Down Payment: </b>${property.downPayment}
+          <div className="property-info">
+            <span className="property-label">Down Payment:</span> $
+            {property.downPayment}
           </div>
-          <div>
-            <b>Interest Rate: </b>
+          <div className="property-info">
+            <span className="property-label">Interest Rate:</span>{" "}
             {property.interestRate}%
           </div>
-          <div>
-            <b>Loan Term: </b>
+          <div className="property-info">
+            <span className="property-label">Loan Term:</span>{" "}
             {property.loanTerm} Years
           </div>
-          <div>
-            <b>Monthly Rental Income: </b>${property.rentalIncome}
+          <div className="property-info">
+            <span className="property-label">Monthly Rental Income:</span> $
+            {property.rentalIncome}
           </div>
-          <div>
-            <b>Monthly Expenses: </b>${property.expenses}
+          <div className="property-info">
+            <span className="property-label">Monthly Expenses:</span> $
+            {property.expenses}
           </div>
-          <hr />
-          <h2>Analysis:</h2>
-          <div>
-            <b>Loan Amount: </b>${property.purchasePrice - property.downPayment}
-          </div>
-          <div>
-            <b>Monthly Mortgage Payment: </b>${property.mortgagePayment}
-          </div>
-          <div>
-            <b>Total Monthly Expenses (incl. Mortgage): </b>$
-            {property.expenses + property.mortgagePayment}
-          </div>
-          <div>
-            <b>Total Monthly Cash Flow: </b>${property.cashFlow}
-          </div>
-          <div>
-            <b>Cash on Cash Return: </b>
-            {property.cocReturn}%
+          <hr className="property-divider" />
+          <h2 className="property-analysis-title">Analysis Results:</h2>
+          <div className="property-analysis">
+            <div className="property-analysis-item">
+              <span className="property-label">Loan Amount:</span>
+              <div>${property.purchasePrice - property.downPayment}</div>
+            </div>
+            <div className="property-analysis-item">
+              <span className="property-label">Monthly Mortgage Payment:</span>{" "}
+              <div>${property.mortgagePayment}</div>
+            </div>
+            <div className="property-analysis-item">
+              <span className="property-label">
+                Total Monthly Expenses (incl. Mortgage):
+              </span>{" "}
+              <div>${property.expenses + property.mortgagePayment}</div>
+            </div>
+            <div className="property-analysis-item">
+              <span className="property-label">Total Monthly Cash Flow:</span>
+              <div>${property.cashFlow}</div>
+            </div>
+            <div className="property-analysis-item">
+              <span className="property-label">Cash on Cash Return:</span>{" "}
+              <div>{property.cocReturn}%</div>
+            </div>
           </div>
         </div>
       </li>
@@ -83,7 +94,7 @@ const Properties = () => {
 
   return (
     <div className="properties-container">
-      <h2 className="section-title">Submit a New Property:</h2>
+      <h2 className="section-title">Analyze a Rental Property:</h2>
       <PropertyForm getProperties={getProperties} />
       <h2 className="section-title">Saved Properties:</h2>
       <ul className="properties-list">{renderProperties()}</ul>

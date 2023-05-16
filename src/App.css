@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.site-name {
+  font-size: 36px;
+  color: #00162c;
+  text-align: left;
+  margin-top: 20px;
+  margin-left: 10px;
+}

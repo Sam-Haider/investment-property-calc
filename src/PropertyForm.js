@@ -1,119 +1,163 @@
-import React from "react"
-import "./PropertyForm.css"
-const axios = require('axios').default;
+import React, { useState } from "react";
+import axios from "axios";
+import "./PropertyForm.css";
 
-class PropertyForm extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            propertyAddress: "",
-            purchasePrice: "",
-            downPayment: "",
-            interestRate: "",
-            loanTerm: "",
-            rentalIncome: "",
-            expenses: ""
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+const PropertyForm = ({ getProperties }) => {
+  const [propertyAddress, setPropertyAddress] = useState("");
+  const [purchasePrice, setPurchasePrice] = useState("");
+  const [downPayment, setDownPayment] = useState("");
+  const [interestRate, setInterestRate] = useState("");
+  const [loanTerm, setLoanTerm] = useState("");
+  const [rentalIncome, setRentalIncome] = useState("");
+  const [expenses, setExpenses] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const api =
+      window.location.hostname === "localhost"
+        ? "http://localhost:8081"
+        : "https://investmentpropcalcapi.herokuapp.com";
+
+    try {
+      await axios.post(`${api}/property`, {
+        propertyAddress,
+        purchasePrice,
+        downPayment,
+        interestRate,
+        loanTerm,
+        rentalIncome,
+        expenses,
+      });
+      getProperties();
+      resetForm();
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    handleChange(event) {
-        this.setState({ [event.target.name]: event.target.value })
-    }
+  const resetForm = () => {
+    setPropertyAddress("");
+    setPurchasePrice("");
+    setDownPayment("");
+    setInterestRate("");
+    setLoanTerm("");
+    setRentalIncome("");
+    setExpenses("");
+  };
 
-    handleSubmit(event) {
-        let api = "http://localhost:8081"
-        if (window.location.hostname !== 'localhost') {
-            api = "https://investmentpropcalcapi.herokuapp.com"
-        }
-        event.preventDefault();
-        const { propertyAddress,
-            purchasePrice,
-            downPayment,
-            interestRate,
-            loanTerm,
-            rentalIncome,
-            expenses } = this.state
-        axios.post(`${api}/property`, {
-            propertyAddress,
-            purchasePrice,
-            downPayment,
-            interestRate,
-            loanTerm,
-            rentalIncome,
-            expenses
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .then(this.props.getProperties)
-            .then(this.setState({ propertyAddress: "", purchasePrice: "", downPayment: "", interestRate: "", loanTerm: "", rentalIncome: "", expenses: "" }))
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+  return (
+    <form id="property-form" className="container" onSubmit={handleSubmit}>
+      <div className="row form-container">
+        <div className="col-lg-6">
+          <div>
+            <label className="input-label" htmlFor="property-address">
+              Property Address
+              <input
+                required
+                type="text"
+                id="property-address"
+                className="input-field"
+                value={propertyAddress}
+                onChange={(e) => setPropertyAddress(e.target.value)}
+                placeholder="123 Main St"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="input-label" htmlFor="purchase-price">
+              Purchase Price
+              <input
+                required
+                type="number"
+                id="purchase-price"
+                className="input-field"
+                value={purchasePrice}
+                onChange={(e) => setPurchasePrice(e.target.value)}
+                placeholder="100000"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="input-label" htmlFor="down-payment">
+              Down Payment
+              <input
+                required
+                type="number"
+                id="down-payment"
+                className="input-field"
+                value={downPayment}
+                onChange={(e) => setDownPayment(e.target.value)}
+                placeholder="20000"
+              />
+            </label>
+          </div>
+        </div>
+        <div className="col-lg-6">
+          <div>
+            <label className="input-label" htmlFor="interest-rate">
+              Interest Rate
+              <input
+                required
+                type="number"
+                id="interest-rate"
+                className="input-field"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                placeholder="4.5"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="input-label" htmlFor="loan-term">
+              Loan Term (Years)
+              <input
+                required
+                type="number"
+                id="loan-term"
+                className="input-field"
+                value={loanTerm}
+                onChange={(e) => setLoanTerm(e.target.value)}
+                placeholder="30"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="input-label" htmlFor="rental-income">
+              Rental Income (Monthly)
+              <input
+                required
+                type="number"
+                id="rental-income"
+                className="input-field"
+                value={rentalIncome}
+                onChange={(e) => setRentalIncome(e.target.value)}
+                placeholder="1500"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="input-label" htmlFor="expenses">
+              Expenses (Monthly)
+              <input
+                required
+                type="number"
+                id="expenses"
+                className="input-field"
+                value={expenses}
+                onChange={(e) => setExpenses(e.target.value)}
+                placeholder="500"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
 
-    render() {
-        return (
-            <form id="property-form" className="container" onSubmit={this.handleSubmit}>
-                <div className="row form-container">
-                    <div className="col-lg-6">
-                        <div>
-                            <label>
-                                Property Address
-                        <input required type="text" id="property-address" name="propertyAddress" value={this.state.propertyAddress} onChange={this.handleChange} placeholder="123 Main st" />
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Purchase Price
-                        <input required type="number" id="purchase-price" name="purchasePrice" value={this.state.purchasePrice} onChange={this.handleChange} placeholder="100000" />
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Down Payment
-                        <input required type="number" id="down-payment" name="downPayment" value={this.state.downPayment} onChange={this.handleChange} placeholder="20000" />
-                            </label>
-                        </div>
-                    </div>
-                    <div className="col-lg-6">
-                        <div>
-                            <label>
-                                Interest Rate
-                        <input required type="number" id="interest-rate" name="interestRate" value={this.state.interestRate} onChange={this.handleChange} placeholder="4.5" />
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Loan Term (Years)
-                        <input required type="number" id="loan-term" name="loanTerm" value={this.state.loanTerm} onChange={this.handleChange} placeholder="30" />
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Rental Income (Monthly)
-                        <input required type="number" id="rental-income" name="rentalIncome" value={this.state.rentalIncome} onChange={this.handleChange} placeholder="1500" />
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Expenses (Monthly)
-                        <input required type="number" id="expenses" name="expenses" value={this.state.expenses} onChange={this.handleChange} placeholder="500" />
-                            </label>
-                        </div>
-                    </div>
-                </div>
+      <div>
+        <input className="submit-btn" type="submit" value="Analyze Now" />
+      </div>
+    </form>
+  );
+};
 
-
-
-                <div>
-                    <input className="btn-primary" type="submit" value="Submit" />
-                </div>
-            </form>
-        )
-    }
-}
-
-export default PropertyForm
+export default PropertyForm;

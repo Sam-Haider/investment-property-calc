@@ -15,37 +15,80 @@
 .property-container {
   border: 1px solid rgb(230, 228, 228);
   border-radius: 0.5rem;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   padding: 20px;
-  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .property-image {
-  text-align: center;
+  flex: 0 0 200px;
+  margin-right: 20px;
   margin-bottom: 10px;
 }
 
-.property-details h3 {
-  font-size: 18px;
+.property-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.property-details div {
-  margin-bottom: 8px;
+.property-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.property-info {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.property-label {
+  font-weight: bold;
+}
+
+.property-divider {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid rgb(230, 228, 228);
+}
+
+.property-analysis-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: 800;
+}
+
+.property-analysis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  text-align: left;
+  @media (max-width: 700px) {
+    display: block;
+  }
+}
+
+.property-analysis-item {
+  flex: 1 0 50%;
+  word-break: break-word; /* Added to allow line breaks within analysis items */
+  margin-bottom: 10px;
+}
+
+.property-value {
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
   .property-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
   }
 
   .property-image {
     width: 100%;
+    margin-right: 0;
     margin-bottom: 20px;
-  }
-
-  .property-details {
-    width: 100%;
   }
 }
