@@ -116,6 +116,11 @@ const Properties = () => {
 
   const handleEdit = (property) => {
     setSelectedProperty(property);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleDeleteConfirmation = (property) => {
@@ -135,7 +140,7 @@ const Properties = () => {
         : "https://investmentpropcalcapi.herokuapp.com";
 
     try {
-      await axios.delete(`${api}/properties/${selectedProperty._id}`);
+      await axios.delete(`${api}/property/${selectedProperty._id}`);
       setSelectedProperty(null);
       setConfirmDelete(false);
       getProperties();
@@ -145,22 +150,17 @@ const Properties = () => {
   };
 
   return (
-    <div className="properties-container">
-      <h2 className="section-title">Analyze a Rental Property:</h2>
-      <PropertyForm
-        getProperties={getProperties}
-        selectedProperty={selectedProperty}
-        setSelectedProperty={setSelectedProperty}
-      />
-      <h2 className="section-title">My Properties:</h2>
-      <ul className="properties-list">{renderProperties()}</ul>
-      {selectedProperty && (
+    <>
+      <div className="properties-container">
+        <h2 className="section-title">Analyze a Rental Property:</h2>
         <PropertyForm
           getProperties={getProperties}
           selectedProperty={selectedProperty}
           setSelectedProperty={setSelectedProperty}
         />
-      )}
+        <h2 className="section-title">My Properties:</h2>
+        <ul className="properties-list">{renderProperties()}</ul>
+      </div>
       {confirmDelete && (
         <div className="confirmation-popup">
           <p>Are you sure you want to delete this property?</p>
@@ -174,7 +174,7 @@ const Properties = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
