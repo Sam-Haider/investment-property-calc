@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PropertyForm.css";
 
-const PropertyForm = ({ getProperties }) => {
+const PropertyForm = ({
+  getProperties,
+  selectedProperty,
+  setSelectedProperty,
+}) => {
   const [propertyAddress, setPropertyAddress] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
   const [downPayment, setDownPayment] = useState("");
@@ -10,6 +14,20 @@ const PropertyForm = ({ getProperties }) => {
   const [loanTerm, setLoanTerm] = useState("");
   const [rentalIncome, setRentalIncome] = useState("");
   const [expenses, setExpenses] = useState("");
+
+  useEffect(() => {
+    if (selectedProperty) {
+      setPropertyAddress(selectedProperty.propertyAddress);
+      setPurchasePrice(selectedProperty.purchasePrice);
+      setDownPayment(selectedProperty.downPayment);
+      setInterestRate(selectedProperty.interestRate);
+      setLoanTerm(selectedProperty.loanTerm);
+      setRentalIncome(selectedProperty.rentalIncome);
+      setExpenses(selectedProperty.expenses);
+    } else {
+      resetForm();
+    }
+  }, [selectedProperty]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,15 +38,28 @@ const PropertyForm = ({ getProperties }) => {
         : "https://investmentpropcalcapi.herokuapp.com";
 
     try {
-      await axios.post(`${api}/property`, {
-        propertyAddress,
-        purchasePrice,
-        downPayment,
-        interestRate,
-        loanTerm,
-        rentalIncome,
-        expenses,
-      });
+      if (selectedProperty) {
+        await axios.patch(`${api}/property/${selectedProperty._id}`, {
+          propertyAddress,
+          purchasePrice,
+          downPayment,
+          interestRate,
+          loanTerm,
+          rentalIncome,
+          expenses,
+        });
+        setSelectedProperty(null);
+      } else {
+        await axios.post(`${api}/properties`, {
+          propertyAddress,
+          purchasePrice,
+          downPayment,
+          interestRate,
+          loanTerm,
+          rentalIncome,
+          expenses,
+        });
+      }
       getProperties();
       resetForm();
     } catch (error) {
@@ -44,6 +75,7 @@ const PropertyForm = ({ getProperties }) => {
     setLoanTerm("");
     setRentalIncome("");
     setExpenses("");
+    setSelectedProperty(null);
   };
 
   return (
@@ -154,7 +186,11 @@ const PropertyForm = ({ getProperties }) => {
       </div>
 
       <div>
-        <input className="submit-btn" type="submit" value="Analyze Now" />
+        <input
+          className="submit-btn"
+          type="submit"
+          value={selectedProperty ? "Update Property" : "Analyze Now"}
+        />
       </div>
     </form>
   );

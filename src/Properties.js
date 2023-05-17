@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import PropertyForm from "./PropertyForm";
 import getRandomImage from "./utils/getRandomImage";
 import "./Properties.css";
 
 const Properties = () => {
   const [allProperties, setAllProperties] = useState([]);
+  const [selectedProperty, setSelectedProperty] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   useEffect(() => {
     getProperties();
@@ -18,7 +21,7 @@ const Properties = () => {
         : "https://investmentpropcalcapi.herokuapp.com";
 
     try {
-      const response = await axios.get(`${api}/property`);
+      const response = await axios.get(`${api}/properties`);
       setAllProperties(response.data);
     } catch (error) {
       console.log("Error:", error);
@@ -92,17 +95,85 @@ const Properties = () => {
               <div className="good-deal">Seems like a good deal!</div>
             )}
           </div>
+          <div className="property-actions">
+            <button
+              className="property-action-button"
+              onClick={() => handleEdit(property)}
+            >
+              <FaEdit />
+            </button>
+            <button
+              className="property-action-button"
+              onClick={() => handleDeleteConfirmation(property)}
+            >
+              <FaTrash />
+            </button>
+          </div>
         </div>
       </li>
     ));
   };
 
+  const handleEdit = (property) => {
+    setSelectedProperty(property);
+  };
+
+  const handleDeleteConfirmation = (property) => {
+    setSelectedProperty(property);
+    setConfirmDelete(true);
+  };
+
+  const cancelDelete = () => {
+    setSelectedProperty(null);
+    setConfirmDelete(false);
+  };
+
+  const deleteProperty = async () => {
+    const api =
+      window.location.hostname === "localhost"
+        ? "http://localhost:8081"
+        : "https://investmentpropcalcapi.herokuapp.com";
+
+    try {
+      await axios.delete(`${api}/properties/${selectedProperty._id}`);
+      setSelectedProperty(null);
+      setConfirmDelete(false);
+      getProperties();
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
   return (
     <div className="properties-container">
       <h2 className="section-title">Analyze a Rental Property:</h2>
-      <PropertyForm getProperties={getProperties} />
+      <PropertyForm
+        getProperties={getProperties}
+        selectedProperty={selectedProperty}
+        setSelectedProperty={setSelectedProperty}
+      />
       <h2 className="section-title">My Properties:</h2>
       <ul className="properties-list">{renderProperties()}</ul>
+      {selectedProperty && (
+        <PropertyForm
+          getProperties={getProperties}
+          selectedProperty={selectedProperty}
+          setSelectedProperty={setSelectedProperty}
+        />
+      )}
+      {confirmDelete && (
+        <div className="confirmation-popup">
+          <p>Are you sure you want to delete this property?</p>
+          <div>
+            <button className="confirm-button" onClick={deleteProperty}>
+              Yes
+            </button>
+            <button className="cancel-button" onClick={cancelDelete}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

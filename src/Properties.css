@@ -19,6 +19,7 @@
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center; /* Added to vertically center property details and actions */
 }
 
 .property-image {
@@ -101,4 +102,62 @@
 .good-deal {
   font-weight: 800;
   color: rgb(0, 151, 48);
+}
+
+.property-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.property-action-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.property-action-button:hover {
+  color: #777;
+}
+
+.confirmation-popup {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.confirmation-popup p {
+  margin: 0 0 20px;
+}
+
+.confirm-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.confirm-button:hover {
+  background-color: #c82333;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #b6b6b6;
 }
