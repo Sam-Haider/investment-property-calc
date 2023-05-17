@@ -17,7 +17,7 @@ const Properties = () => {
     const api =
       window.location.hostname === "localhost"
         ? "http://localhost:8081"
-        : "https://investment-property-calc-api.herokuapp.com/";
+        : "https://investment-property-calc-api.herokuapp.com";
 
     try {
       const response = await axios.get(`${api}/properties`);
