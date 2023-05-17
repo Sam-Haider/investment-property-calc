@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PropertyForm.css";
+import getRandomImage from "./utils/getRandomImage";
 
 const PropertyForm = ({
   getProperties,
@@ -14,6 +15,7 @@ const PropertyForm = ({
   const [loanTerm, setLoanTerm] = useState("");
   const [rentalIncome, setRentalIncome] = useState("");
   const [expenses, setExpenses] = useState("");
+  const imagePath = getRandomImage();
 
   useEffect(() => {
     if (selectedProperty) {
@@ -58,6 +60,7 @@ const PropertyForm = ({
           loanTerm,
           rentalIncome,
           expenses,
+          imagePath,
         });
       }
       getProperties();

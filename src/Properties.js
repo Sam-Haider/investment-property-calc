@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import PropertyForm from "./PropertyForm";
-import getRandomImage from "./utils/getRandomImage";
 import "./Properties.css";
 
 const Properties = () => {
@@ -36,7 +35,11 @@ const Properties = () => {
     return allProperties.map((property) => (
       <li key={property._id} className="property-container">
         <div className="property-image-div">
-          <img className="property-image" src={getRandomImage()} alt="a home" />
+          <img
+            className="property-image"
+            src={property.imagePath}
+            alt="a home"
+          />
         </div>
         <div className="property-details">
           <h3 className="property-title">{property.propertyAddress}</h3>
