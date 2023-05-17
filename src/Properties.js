@@ -35,8 +35,8 @@ const Properties = () => {
 
     return allProperties.map((property) => (
       <li key={property._id} className="property-container">
-        <div className="property-image">
-          <img src={getRandomImage()} alt="a home" height="200" />
+        <div className="property-image-div">
+          <img className="property-image" src={getRandomImage()} alt="a home" />
         </div>
         <div className="property-details">
           <h3 className="property-title">{property.propertyAddress}</h3>
