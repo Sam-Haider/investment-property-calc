@@ -155,13 +155,13 @@ const Properties = () => {
   return (
     <>
       <div className="properties-container">
-        <h2 className="section-title">Analyze a Rental Property:</h2>
+        <h2 className="section-title">Analyze a Rental Property</h2>
         <PropertyForm
           getProperties={getProperties}
           selectedProperty={selectedProperty}
           setSelectedProperty={setSelectedProperty}
         />
-        <h2 className="section-title">My Properties:</h2>
+        <h2 className="section-title">My Properties</h2>
         <ul className="properties-list">{renderProperties()}</ul>
       </div>
       {confirmDelete && (
