@@ -38,7 +38,7 @@ const PropertyForm = ({
     const api =
       window.location.hostname === "localhost"
         ? "http://localhost:8081"
-        : "https://investmentpropcalcapi.herokuapp.com";
+        : "https://investment-property-calc-api.herokuapp.com/";
 
     try {
       if (selectedProperty) {
