@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "./PropertyForm.css";
 import getRandomImage from "./utils/getRandomImage";
@@ -29,7 +29,8 @@ const PropertyForm = ({
     } else {
       resetForm();
     }
-  }, [selectedProperty]);
+    // eslint-disable-next-line no-use-before-define
+  }, [resetForm, selectedProperty]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,7 +71,7 @@ const PropertyForm = ({
     }
   };
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setPropertyAddress("");
     setPurchasePrice("");
     setDownPayment("");
@@ -79,7 +80,16 @@ const PropertyForm = ({
     setRentalIncome("");
     setExpenses("");
     setSelectedProperty(null);
-  };
+  }, [
+    setPropertyAddress,
+    setPurchasePrice,
+    setDownPayment,
+    setInterestRate,
+    setLoanTerm,
+    setRentalIncome,
+    setExpenses,
+    setSelectedProperty,
+  ]);
 
   return (
     <form id="property-form" className="container" onSubmit={handleSubmit}>
