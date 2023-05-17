@@ -8,3 +8,4 @@ By inputting various data points, such as the purchase price, down payment, inte
 -cash on cash return
 
 The API is hosted at https://investment-property-calc-api.herokuapp.com/
+The API code is at https://github.com/Sam-Haider/investment-property-calc-api
