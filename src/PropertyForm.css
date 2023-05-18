@@ -9,6 +9,7 @@
   display: block;
   margin-bottom: 0.5rem;
   text-align: left;
+  font-weight: 800;
 }
 
 .input-field {
@@ -20,12 +21,13 @@
 }
 
 .submit-btn {
-  width: 250px;
+  width: 100%;
   border: none;
   border-radius: 0.25rem;
-  background-color: rgb(14, 108, 209);
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
   color: white;
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-size: 22px;
+  margin-top: 20px;
 }

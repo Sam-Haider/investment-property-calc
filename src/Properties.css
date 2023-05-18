@@ -1,10 +1,13 @@
 .properties-container {
+  max-width: 700px;
   padding: 20px;
+  margin: 0 auto;
 }
 
 .section-title {
   font-size: 24px;
   margin-top: 20px;
+  margin-bottom: 20px;
   text-align: left;
 }
 

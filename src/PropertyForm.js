@@ -16,6 +16,25 @@ const PropertyForm = ({
   const [rentalIncome, setRentalIncome] = useState("");
   const [expenses, setExpenses] = useState("");
   const imagePath = getRandomImage();
+  const resetForm = useCallback(() => {
+    setPropertyAddress("");
+    setPurchasePrice("");
+    setDownPayment("");
+    setInterestRate("");
+    setLoanTerm("");
+    setRentalIncome("");
+    setExpenses("");
+    setSelectedProperty(null);
+  }, [
+    setPropertyAddress,
+    setPurchasePrice,
+    setDownPayment,
+    setInterestRate,
+    setLoanTerm,
+    setRentalIncome,
+    setExpenses,
+    setSelectedProperty,
+  ]);
 
   useEffect(() => {
     if (selectedProperty) {
@@ -29,7 +48,6 @@ const PropertyForm = ({
     } else {
       resetForm();
     }
-    // eslint-disable-next-line no-use-before-define
   }, [resetForm, selectedProperty]);
 
   const handleSubmit = async (event) => {
@@ -71,133 +89,107 @@ const PropertyForm = ({
     }
   };
 
-  const resetForm = useCallback(() => {
-    setPropertyAddress("");
-    setPurchasePrice("");
-    setDownPayment("");
-    setInterestRate("");
-    setLoanTerm("");
-    setRentalIncome("");
-    setExpenses("");
-    setSelectedProperty(null);
-  }, [
-    setPropertyAddress,
-    setPurchasePrice,
-    setDownPayment,
-    setInterestRate,
-    setLoanTerm,
-    setRentalIncome,
-    setExpenses,
-    setSelectedProperty,
-  ]);
-
   return (
     <form id="property-form" className="container" onSubmit={handleSubmit}>
-      <div className="row form-container">
-        <div className="col-lg-6">
-          <div>
-            <label className="input-label" htmlFor="property-address">
-              Property Address
-              <input
-                required
-                type="text"
-                id="property-address"
-                className="input-field"
-                value={propertyAddress}
-                onChange={(e) => setPropertyAddress(e.target.value)}
-                placeholder="123 Main St"
-              />
-            </label>
-          </div>
-          <div>
-            <label className="input-label" htmlFor="purchase-price">
-              Purchase Price
-              <input
-                required
-                type="number"
-                id="purchase-price"
-                className="input-field"
-                value={purchasePrice}
-                onChange={(e) => setPurchasePrice(e.target.value)}
-                placeholder="100000"
-              />
-            </label>
-          </div>
-          <div>
-            <label className="input-label" htmlFor="down-payment">
-              Down Payment
-              <input
-                required
-                type="number"
-                id="down-payment"
-                className="input-field"
-                value={downPayment}
-                onChange={(e) => setDownPayment(e.target.value)}
-                placeholder="20000"
-              />
-            </label>
-          </div>
-        </div>
-        <div className="col-lg-6">
-          <div>
-            <label className="input-label" htmlFor="interest-rate">
-              Interest Rate
-              <input
-                required
-                type="number"
-                id="interest-rate"
-                className="input-field"
-                value={interestRate}
-                onChange={(e) => setInterestRate(e.target.value)}
-                placeholder="4.5"
-              />
-            </label>
-          </div>
-          <div>
-            <label className="input-label" htmlFor="loan-term">
-              Loan Term (Years)
-              <input
-                required
-                type="number"
-                id="loan-term"
-                className="input-field"
-                value={loanTerm}
-                onChange={(e) => setLoanTerm(e.target.value)}
-                placeholder="30"
-              />
-            </label>
-          </div>
-          <div>
-            <label className="input-label" htmlFor="rental-income">
-              Rental Income (Monthly)
-              <input
-                required
-                type="number"
-                id="rental-income"
-                className="input-field"
-                value={rentalIncome}
-                onChange={(e) => setRentalIncome(e.target.value)}
-                placeholder="1500"
-              />
-            </label>
-          </div>
-          <div>
-            <label className="input-label" htmlFor="expenses">
-              Expenses (Monthly)
-              <input
-                required
-                type="number"
-                id="expenses"
-                className="input-field"
-                value={expenses}
-                onChange={(e) => setExpenses(e.target.value)}
-                placeholder="500"
-              />
-            </label>
-          </div>
-        </div>
+      <div>
+        <label className="input-label" htmlFor="property-address">
+          Property Address
+          <input
+            required
+            type="text"
+            id="property-address"
+            className="input-field"
+            value={propertyAddress}
+            onChange={(e) => setPropertyAddress(e.target.value)}
+            placeholder="123 Main St"
+          />
+        </label>
+      </div>
+      <div>
+        <label className="input-label" htmlFor="purchase-price">
+          Purchase Price
+          <input
+            required
+            type="number"
+            id="purchase-price"
+            className="input-field"
+            value={purchasePrice}
+            onChange={(e) => setPurchasePrice(e.target.value)}
+            placeholder="100000"
+          />
+        </label>
+      </div>
+      <div>
+        <label className="input-label" htmlFor="down-payment">
+          Down Payment
+          <input
+            required
+            type="number"
+            id="down-payment"
+            className="input-field"
+            value={downPayment}
+            onChange={(e) => setDownPayment(e.target.value)}
+            placeholder="20000"
+          />
+        </label>
       </div>
 
+      <div>
+        <label className="input-label" htmlFor="interest-rate">
+          Interest Rate
+          <input
+            required
+            type="number"
+            id="interest-rate"
+            className="input-field"
+            value={interestRate}
+            onChange={(e) => setInterestRate(e.target.value)}
+            placeholder="4.5"
+          />
+        </label>
+      </div>
+      <div>
+        <label className="input-label" htmlFor="loan-term">
+          Loan Term (Years)
+          <input
+            required
+            type="number"
+            id="loan-term"
+            className="input-field"
+            value={loanTerm}
+            onChange={(e) => setLoanTerm(e.target.value)}
+            placeholder="30"
+          />
+        </label>
+      </div>
+      <div>
+        <label className="input-label" htmlFor="rental-income">
+          Rental Income (Monthly)
+          <input
+            required
+            type="number"
+            id="rental-income"
+            className="input-field"
+            value={rentalIncome}
+            onChange={(e) => setRentalIncome(e.target.value)}
+            placeholder="1500"
+          />
+        </label>
+      </div>
+      <div>
+        <label className="input-label" htmlFor="expenses">
+          Expenses (Monthly)
+          <input
+            required
+            type="number"
+            id="expenses"
+            className="input-field"
+            value={expenses}
+            onChange={(e) => setExpenses(e.target.value)}
+            placeholder="500"
+          />
+        </label>
+      </div>
       <div>
         <input
           className="submit-btn"
