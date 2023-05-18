@@ -68,7 +68,7 @@ const Properties = () => {
             {property.expenses}
           </div>
           <hr className="property-divider" />
-          <h2 className="property-analysis-title">Analysis Results:</h2>
+          <h2 className="property-analysis-title">Analysis:</h2>
           <div className="property-analysis">
             <div className="property-analysis-item">
               <span className="property-label">Loan Amount:</span>
@@ -90,10 +90,11 @@ const Properties = () => {
             </div>
             <div className="property-analysis-item">
               <span className="property-label">Cash on Cash Return:</span>{" "}
-              <div>{property.cocReturn}%</div>
+              <div>{property.cocReturn.toFixed(2)}%</div>
             </div>
+            <span className="property-label">Result:</span>{" "}
             {property.cocReturn < 0 ? (
-              <div className="do-not-invest">Do Not Invest</div>
+              <div className="do-not-invest">Don't invest</div>
             ) : (
               <div className="good-deal">Seems like a good deal!</div>
             )}

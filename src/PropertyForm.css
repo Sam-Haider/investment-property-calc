@@ -13,11 +13,17 @@
 }
 
 .input-field {
+  color: white;
   width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 0.25rem;
   border: 1px solid #ced4da;
+  background-color: rgb(28, 19, 83);
+}
+
+.input-field::placeholder {
+  color: rgb(190, 168, 250);
 }
 
 .submit-btn {
