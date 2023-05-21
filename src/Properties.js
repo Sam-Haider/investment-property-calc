@@ -92,7 +92,10 @@ const Properties = () => {
               <span className="property-label">Cash on Cash Return:</span>{" "}
               <div>{property.cocReturn.toFixed(2)}%</div>
             </div>
-            <span className="property-label">Result:</span>{" "}
+          </div>
+
+          <div className="analysis-result">
+            <div className="property-label">Result: </div>
             {property.cocReturn < 0 ? (
               <div className="do-not-invest">Don't invest</div>
             ) : (
