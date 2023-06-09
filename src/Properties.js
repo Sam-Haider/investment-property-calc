@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import PropertyForm from "./PropertyForm";
 import "./Properties.css";
+import { getProperties } from "./api/properties";
 
 const Properties = () => {
   const [allProperties, setAllProperties] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  useEffect(() => {
-    getProperties();
-  }, []);
-
-  const getProperties = async () => {
-    const api =
-      window.location.hostname === "localhost"
-        ? "http://localhost:8081"
-        : "https://investment-property-calc-api.herokuapp.com";
-
-    try {
-      const response = await axios.get(`${api}/properties`);
-      setAllProperties(response.data);
-    } catch (error) {
-      console.log("Error:", error);
-    }
+  const fetchProperties = async () => {
+    const properties = await getProperties();
+    setAllProperties(properties);
   };
+
+  useEffect(() => {
+    fetchProperties();
+  }, []);
 
   const renderProperties = () => {
     if (allProperties.length === 0) {
